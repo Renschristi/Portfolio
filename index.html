@@ -981,12 +981,12 @@
           left: 1rem;
           right: 1rem;
           bottom: auto;
-          top: 0.75rem;
+          top: 0.35rem;
           gap: 0.6rem;
           flex-wrap: nowrap;
           justify-content: flex-start;
           overflow-x: visible;
-          padding: 0.4rem 0.4rem;
+          padding: 0.3rem 0.35rem;
           background: color-mix(in srgb, var(--bg) 80%, var(--fg) 20%);
           border: 2px solid var(--fg);
         }
@@ -1030,6 +1030,76 @@
         }
       }
 
+      @media (max-width: 768px) {
+        #home.section {
+          min-height: 92vh;
+        }
+
+        #home.section::after {
+          bottom: -4vw;
+          height: 10vw;
+        }
+
+        .hero-label {
+          top: 1rem;
+          left: 1rem;
+        }
+
+        .availability {
+          top: 2.4rem;
+          left: 1rem;
+        }
+
+        .hero-block {
+          left: 50%;
+          top: 44vh;
+          transform: translateX(-50%) rotate(-2deg);
+          text-align: center;
+        }
+
+        .hero-intro,
+        .hero-tagline {
+          text-align: center;
+        }
+
+        .swirl-stage {
+          transform: translateY(10vh) scale(0.82);
+          transform-origin: top center;
+        }
+
+        .swirl-core {
+          width: min(72vw, 360px);
+        }
+
+        .nav {
+          top: auto;
+          bottom: 0.9rem;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 0.4rem;
+          padding: 0.4rem 0.5rem;
+        }
+
+        .nav a span {
+          display: inline;
+        }
+
+        .nav a::before {
+          display: none;
+        }
+
+        .nav a {
+          font-size: 0.65rem;
+          letter-spacing: 0.18em;
+          padding: 0.25rem 0.45rem;
+        }
+
+        .controls-toggle {
+          top: 2.6rem;
+          right: 1rem;
+        }
+      }
+
       @media (max-width: 640px) {
         .section {
           padding: 2.5rem 1.25rem 4.5rem;
@@ -1063,14 +1133,15 @@
         }
 
         .controls-toggle {
-          top: 3.2rem;
+          top: 2.8rem;
           right: 1rem;
           left: auto;
         }
 
         .hero-block {
-          left: 7vw;
-          top: 32vh;
+          left: 50%;
+          top: 42vh;
+          transform: translateX(-50%) rotate(-2deg);
         }
 
         .watermark {
@@ -1088,7 +1159,8 @@
         }
 
         .swirl-stage {
-          transform: translateY(16vh);
+          transform: translateY(12vh) scale(0.78);
+          transform-origin: top center;
         }
 
         .swirl-item {
@@ -1780,6 +1852,15 @@
           tilt: Number(tiltInput.value),
         };
 
+        const applyMobileDefaults = () => {
+          if (window.matchMedia("(max-width: 768px)").matches) {
+            state.count = Math.min(state.count, 8);
+            state.radius = Math.min(state.radius, 180);
+            countInput.value = String(state.count);
+            radiusInput.value = String(state.radius);
+          }
+        };
+
         const roles = [
           "Web<br>Developer",
           "AI / ML",
@@ -1858,10 +1939,15 @@
         bindRange(speedInput, "speed", (value) => Number(value) / 100);
         bindRange(tiltInput, "tilt", (value) => Number(value));
 
+        applyMobileDefaults();
         rebuildSwirl();
         updateDisplay();
 
-        window.addEventListener("resize", rebuildSwirl);
+        window.addEventListener("resize", () => {
+          applyMobileDefaults();
+          rebuildSwirl();
+          updateDisplay();
+        });
 
         let tick = 0;
         const animateSwirl = () => {
