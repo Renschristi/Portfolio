@@ -985,10 +985,21 @@
           gap: 0.6rem;
           flex-wrap: nowrap;
           justify-content: flex-start;
-          overflow-x: auto;
-          padding: 0.4rem 0.2rem;
+          overflow-x: visible;
+          padding: 0.4rem 0.4rem;
           background: color-mix(in srgb, var(--bg) 80%, var(--fg) 20%);
           border: 2px solid var(--fg);
+        }
+
+        .nav a span {
+          display: none;
+        }
+
+        .nav a::before {
+          content: attr(data-icon);
+          font-family: "Space Mono", monospace;
+          font-size: 0.75rem;
+          letter-spacing: 0.1em;
         }
 
         .controls-toggle {
@@ -1059,7 +1070,7 @@
 
         .hero-block {
           left: 7vw;
-          top: 36vh;
+          top: 32vh;
         }
 
         .watermark {
@@ -1077,7 +1088,7 @@
         }
 
         .swirl-stage {
-          transform: translateY(8vh);
+          transform: translateY(16vh);
         }
 
         .swirl-item {
@@ -1111,12 +1122,12 @@
   <body data-theme="cobalt">
     <div class="scanlines" aria-hidden="true"></div>
     <nav class="nav" aria-label="Primary">
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#experience">Experience</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
+      <a href="#home" data-icon="⌂"><span>Home</span></a>
+      <a href="#about" data-icon="ℹ"><span>About</span></a>
+      <a href="#projects" data-icon="★"><span>Projects</span></a>
+      <a href="#experience" data-icon="⚡"><span>Experience</span></a>
+      <a href="#skills" data-icon="▣"><span>Skills</span></a>
+      <a href="#contact" data-icon="✉"><span>Contact</span></a>
     </nav>
     <main>
       <section class="section section--cobalt" id="home">
@@ -1136,7 +1147,7 @@
           >
             Controls
           </button>
-          <div class="controls" role="group" aria-label="Swirl controls">
+          <div class="controls is-collapsed" role="group" aria-label="Swirl controls">
             <h3>Controls</h3>
             <div class="control-row">
               <label for="swirl-count">Tiles</label>
